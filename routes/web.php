@@ -17,7 +17,7 @@ use App\Http\Controllers\ListingController;
 |
 */
 
-Route::get('/', [ListingController::class, 'index']);
+Route::get('/', [CourseController::class, 'index']);
 
 Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
@@ -33,6 +33,7 @@ Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware
 
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
+
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 Route::post('/users', [UserController::class, 'store']);
@@ -43,4 +44,14 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
-Route::get('/courses/create', [CourseController::class, 'create']);
+
+
+Route::get('/courses/create', [CourseController::class, 'create'])->middleware('auth');
+
+Route::get('/courses/{course}', [CourseController::class, 'show']);
+
+Route::post('/courses', [CourseController::class, 'store']);
+
+Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
+
+Route::put('/courses/{course}', [CourseController::class, 'update']);
