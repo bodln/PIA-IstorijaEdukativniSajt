@@ -12,7 +12,7 @@ class CourseController extends Controller
         return view('courses.index', [
             'courses' => Course::latest()
             ->filter(request(['tag', 'search']))
-            ->paginate(4)
+            ->paginate(10)
         ]);
     }
 
@@ -30,13 +30,13 @@ class CourseController extends Controller
         $formFields = $request->validate([
             'title' => 'required',
             'tags' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'content' => 'required'
         ]);
         if (!array_key_exists('content', $formFields)) {
             $formFields['content'] = 'test';
         }
-        //dd($formFields);
+        //dd($request);
         $formFields['user_id'] = auth()->id();
  
         Course::create($formFields);
@@ -57,12 +57,28 @@ class CourseController extends Controller
         $formFields = $request->validate([
             'title' => 'required',
             'tags' => 'required',
-            'description' => 'required|max:20'
+            'description' => 'required|max:500',
+            'content' => 'required'
         ]);
 
         $course->content = $request->input('content');
         $course->update($formFields);
 
         return back()->with('message', 'Kurs uspešno izmenjen.');
+    }
+
+    public function destroy(Course $course){
+
+        if($course->user_id != auth()->id()){
+            abort(403, 'Unauthorized action');
+        }
+
+        $course->delete();
+        return redirect('/')->with('message', 'Course deleted successfully.');
+    }
+
+    public function manage(){
+        $courses = auth()->user()->courses;
+        return view('courses.manage', ['courses' => $courses]);
     }
 }

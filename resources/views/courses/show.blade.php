@@ -6,41 +6,29 @@
     <div class="mx-4">
         <x-card class="p-24">
             <div class="flex flex-col items-center justify-center text-center">
-                <img class="w-48 mr-6 mb-6" src="{{ $course->logo ? asset('storage/'
-        . "") : asset('/images/no-image.png') }}" alt="" />
+                {{-- <img class="w-48 mr-6 mb-6" src="{{ $course->logo ? asset('storage/'
+        . "") : asset('/images/no-image.png') }}" alt="" /> --}}
 
-                <h3 class="text-2xl mb-2">{{ $course->title }}</h3>
-                <div class="text-xl font-bold mb-4">{{ auth()->user()->name }}</div>
+                <h3 class="text-2xl font-bold m-2 text-center">{{ $course->title }}</h3>
+                <div class="text-lg m-4 flex items-center justify-center">
+                    <i class="fa-regular fa-user"></i> 
+                    <p>{{ $course->user->name }}</p>
+                </div>
 
                 <x-listing-tags :tagsCsv="$course->tags" />
 
                 {{-- <div class="text-lg my-4">
                     <i class="fa-solid fa-location-dot"></i> {{ $course->location }}
                 </div> --}}
-                <div class="border border-gray-200 w-full mb-6"></div>
-                <div>
-                    <h3 class="text-3xl font-bold mb-4">
-                        Kratak opis
-                    </h3>
-                    <div class="text-lg space-y-6">
-                        {{ $course->description }}
-
-                        {{-- <a href="mailto:{{ $course->email }}"
-                            class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"><i
-                                class="fa-solid fa-envelope"></i>
-                            Contact Employer</a>
-
-                        <a href="{{ $course->website }}" target="_blank"
-                            class="block bg-black text-white py-2 rounded-xl hover:opacity-80"><i
-                                class="fa-solid fa-globe"></i> Visit
-                            Website</a> --}}
-                    </div>
+                <div class="text-lg space-y-6 text-justify" style="overflow-wrap: break-word;">
+                    {{ $course->description }}
                 </div>
+                <div class="border border-gray-200 w-full mb-6 mt-6"></div>
                 <div style="text-align: left;">
-                    <h3 class="text-3xl font-bold mb-4">
+                    {{-- <h3 class="text-3xl font-bold mb-4">
                         Sadržaj
-                    </h3>
-                    <div class="text-lg space-y-6">
+                    </h3> --}}
+                    <div class="text-lg space-y-6 text-justify">
                         {!! $course->content !!}
                     </div>
                 </div>

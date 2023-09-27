@@ -11,6 +11,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/node_modules/stimulus/dist/stimulus.umd.js"></script>
+    <script type="module" src="{{ asset('trix_controller.js') }}"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
@@ -26,12 +29,12 @@
             };
     </script>
     <x-rich-text-trix-styles />
-    <title>LaraGigs | Find Laravel Jobs & Projects</title>
+    <title>Forum o istoriji</title>
 </head>
 
 <x-flash-message />
 
-<body class="mb-48">
+<body class="relative pb-40">
     <nav class="flex justify-between items-center mb-4">
         <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
@@ -42,8 +45,11 @@
                 </span>
             </li>
             <li>
-                <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
-                    Manage Listings</a>
+                <a href="/courses/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
+                    Upravljanje Kursevima</a>
+            </li>
+            <li>
+                <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Kreiraj Kurs</a>
             </li>
             <li>
                 <form class="inline" method="POST" action="/logout">
@@ -68,10 +74,8 @@
         {{ $slot }}
     </main>
     <footer
-        class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center">
+        class="absolute bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center">
         <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
-
-        <a href="/courses/create" class="absolute top-1/3 left-10 bg-black text-white py-2 px-5">Kreiraj Kurs</a>
     </footer>
 </body>
 

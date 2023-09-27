@@ -62,3 +62,16 @@
     min-height: 250px;
     height: auto;
 }
+
+
+.trix-button-group--file-tools {
+    display: none !important;
+}
+
+.trix-button--icon-code {
+    display: none !important;
+}
+
+.trix-button--icon-quote {
+    display: none !important;
+}
