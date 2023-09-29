@@ -74,7 +74,7 @@ class CourseController extends Controller
         }
 
         $course->delete();
-        return redirect('/')->with('message', 'Course deleted successfully.');
+        return redirect('/')->with('message', 'Kurs uspešno obrisano.');
     }
 
     public function manage(){

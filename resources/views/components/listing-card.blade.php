@@ -13,5 +13,6 @@
             <i class="fa-regular fa-user"></i> 
             <p>{{ $course->user->name }}</p>
         </div>
+        <div class="text-gray-500 italic text-sm mb-4 mr-4 ml-4 text-center">{{ $course->updated_at->addHours(2) }}</div>
     </div>
 </x-card>

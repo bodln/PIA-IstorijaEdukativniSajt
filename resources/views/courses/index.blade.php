@@ -6,7 +6,7 @@
     place-items: center;">
 
         @if(count($courses) == 0)
-        <p>No listings found</p>
+        <p>Nema pronađenih kurseva</p>
         @endif
 
         @foreach($courses as $course)

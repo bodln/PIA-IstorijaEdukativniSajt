@@ -62,6 +62,7 @@
                     Kreiraj Kurs
                 </button>
 
+                <div class="text-gray-500 italic text-sm mb-4 mr-4 ml-4 text-center">(za dodavanje pitanja uđite u izmenu kursa posle kreacije)</div>
                 <a href="/" class="text-black ml-4"> Nazad </a>
             </div>
         </form>
