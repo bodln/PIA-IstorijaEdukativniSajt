@@ -95,22 +95,28 @@ class QuestionController extends Controller
     public function checkAnswers(Request $request)
     {
         $selectedAnswers = $request->input('answers');
+        $previousAnswers = $request->session()->get('selectedAnswers', []);
         $results = [];
         $questions = [];
 
+        
         if (!empty($selectedAnswers)) {
-
+            
             $user = User::find(auth()->user()->id);
-
+            
             foreach ($selectedAnswers as $questionId => $selectedAnswer) {
                 $question = Question::find($questionId);
-                $question->attempts++;
-                $user->attempts++;
+                if (!in_array($questionId, $previousAnswers)) {
+                    $question->attempts++;
+                    $user->attempts++;
+                }
 
                 if ($question->answer === $selectedAnswer) {
                     $results[$questionId] = true;
-                    $question->completions++;
-                    $user->completions++;
+                    if (!in_array($questionId, $previousAnswers)) {
+                        $question->completions++;
+                        $user->completions++;
+                    }
                 } else {
                     $results[$questionId] = false;
                 }
@@ -119,16 +125,17 @@ class QuestionController extends Controller
 
                 $user->save();
                 $question->save();
-
             }
 
+            $request->session()->put('selectedAnswers', array_keys($selectedAnswers));
             session(['questions' => $questions, 'results' => $results]);
         }
 
         return redirect('/questions/result');
     }
 
-    public function results(){
+    public function results()
+    {
         $results = session('results');
         $questions = session('questions');
 
