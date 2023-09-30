@@ -71,9 +71,12 @@ Route::put('/questions/{question}', [QuestionController::class, 'update'])->midd
 
 Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->middleware('auth');
 
+Route::get('/questions/result', [QuestionController::class, 'results']);
+
 Route::get('/questions/{course}/show', [QuestionController::class, 'show']);
 
 Route::post('/questions/check', [QuestionController::class, 'checkAnswers']);
+
 
 
 Route::post('/attachments', [AttachmentsController::class, 'authenticate'])->name('attachments.store');

@@ -41,7 +41,9 @@
             @auth
             <li>
                 <span class="font-bold uppercase">
-                    Welcome {{ auth()->user()->name }}
+                    {{ auth()->user()->name }}, preciznost: {{ number_format((auth()->user()->completions /
+                        auth()->user()->attempts) * 100, 2) }}% ({{ auth()->user()->completions }} /
+                        {{ auth()->user()->attempts }})
                 </span>
             </li>
             <li>

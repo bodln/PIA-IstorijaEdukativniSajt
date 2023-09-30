@@ -7,36 +7,44 @@
                     @csrf
                     <div class="mx-4 flex flex-col items-center justify-center">
                         @if ($course->questions->isNotEmpty())
-                            Težina: {{ $course->questions->first()->difficulty }}
-                            <div class="border border-gray-200 w-full mb-6 mt-6"></div>
-                            @foreach ($course->questions as $question)
-                                <h1>{{ $question->question }}</h1>
-                                @php
-                                    $options = [
-                                        $question->option1,
-                                        $question->option2,
-                                        $question->option3,
-                                        $question->option4,
-                                    ];
-                                    shuffle($options);
-                                @endphp
-                                <div class="mx-4 grid grid-cols-2 gap-10">
-                                    @foreach ($options as $option)
-                                        <label class="block mb-2">
-                                            <input class="text-l font-bold mt-3" type="radio" name="answers[{{ $question->id }}]" value="{{ $option }}">
-                                            {{ $option }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                                <div class="border border-gray-200 w-full mb-6 mt-6"></div>
+                        Težina: {{ $course->questions->first()->difficulty }}
+                        <div class="border border-gray-200 w-full mb-6 mt-6"></div>
+                        @foreach ($course->questions as $question)
+                        <p class="text-lg font-semibold mb-3">{{ $question->question }}</p>
+                        @php
+                        $options = [
+                        $question->option1,
+                        $question->option2,
+                        $question->option3,
+                        $question->option4,
+                        ];
+                        shuffle($options);
+                        @endphp
+                        <div class="mx-4 grid grid-cols-2 gap-10">
+                            {{-- @foreach ($options as $option)
+                            <label class="block mb-2">
+                                <input class="text-l font-bold mt-3" type="radio" name="answers[{{ $question->id }}]"
+                                    value="{{ $option }}">
+                                {{ $option }}
+                            </label>
+                            @endforeach --}}
+                            @foreach ($options as $option)
+                            <label class="block mb-2">
+                                <input class="text-l mt-3" type="radio" name="answers[{{ $question->id }}]"
+                                    value="{{ $option }}" onclick="updateLabelStyle(this)">
+                                <span>{{ $option }}</span>
+                            </label>
                             @endforeach
+                        </div>
+                        <div class="border border-gray-200 w-full mb-6 mt-6"></div>
+                        @endforeach
 
-                            <button type="submit"
-                                class="pr-2 pl-2 h-10 mb-4 mt-3 text-white border border-gray-300 rounded-lg bg-red-500 hover:bg-red-600">
-                                Proveri odgovore
-                            </button>
+                        <button type="submit"
+                            class="pr-2 pl-2 h-10 mb-8 mt-3 text-white border border-gray-300 rounded-lg bg-red-500 hover:bg-red-600">
+                            Proveri odgovore
+                        </button>
                         @else
-                            <p class="m-9">Nema pitanja za ovaj kurs sa ovom težinom</p>
+                        <p class="m-9">Nema pitanja za ovaj kurs sa ovom težinom</p>
                         @endif
                     </div>
                 </form>
@@ -44,3 +52,23 @@
         </x-card>
     </div>
 </x-layout>
+
+<style>
+    .selected-label {
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    function updateLabelStyle(radioButton) {
+        const labels = radioButton.parentNode.parentNode.querySelectorAll('label');
+
+        labels.forEach(label => {
+            label.classList.remove('selected-label');
+        });
+
+        if (radioButton.checked) {
+            radioButton.parentNode.classList.add('selected-label');
+        }
+    }
+</script>

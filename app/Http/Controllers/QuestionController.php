@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    public function show(Request $request, Course $course) {
+    public function show(Request $request, Course $course)
+    {
 
         $course->questions = $course->questions()->where('difficulty', $request['difficulty'])->get();
         //dd($course->questions);
@@ -29,11 +30,13 @@ class QuestionController extends Controller
         return view('questions.create', compact('course'));
     }
 
-    public function edit(Question $question){
+    public function edit(Question $question)
+    {
         return view('questions.edit', ['question' => $question]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $formFields = $request->validate([
             'question' => 'required|max:1000',
             'option1' => 'required|max:100',
@@ -55,7 +58,8 @@ class QuestionController extends Controller
         return redirect('/courses/' . (int)$courseId . '/edit')->with('message', 'Pitanje uspešno kreirano.');
     }
 
-    public function update(Request $request, Question $question){
+    public function update(Request $request, Question $question)
+    {
         $formFields = $request->validate([
             'question' => 'required|max:1000',
             'option1' => 'required|max:100',
@@ -65,7 +69,7 @@ class QuestionController extends Controller
         ]);
 
         $courseId = request('course_id');
-        
+
         $formFields['course_id'] = $courseId;
         $formFields['difficulty'] = request('difficulty');
         $formFields['attempts'] = 0;
@@ -77,9 +81,10 @@ class QuestionController extends Controller
         return redirect('/courses/' . (int)$courseId . '/edit')->with('message', 'Pitanje uspešno izmenjeno.');
     }
 
-    public function destroy(Question $question){
+    public function destroy(Question $question)
+    {
 
-        if($question->course->user_id != auth()->id()){
+        if ($question->course->user_id != auth()->id()) {
             abort(403, 'Unauthorized action');
         }
 
@@ -87,29 +92,46 @@ class QuestionController extends Controller
         return redirect('/courses/' . (int)$question->course->id . '/edit')->with('message', 'Pitanje uspešno obrisano.');
     }
 
-    public function checkAnswers(Request $request) {
+    public function checkAnswers(Request $request)
+    {
         $selectedAnswers = $request->input('answers');
         $results = [];
+        $questions = [];
 
-        $user = User::find(auth()->user()->id);
-    
-        foreach ($selectedAnswers as $questionId => $selectedAnswer) {
-            $question = Question::find($questionId);
-            $question->attempts++;
-            $user->attempts++;
+        if (!empty($selectedAnswers)) {
 
-            if ($question->answer === $selectedAnswer) {
-                $results[$questionId] = true; 
-                $question->completions++;
-                $user->completions++;
-            } else {
-                $results[$questionId] = false;
+            $user = User::find(auth()->user()->id);
+
+            foreach ($selectedAnswers as $questionId => $selectedAnswer) {
+                $question = Question::find($questionId);
+                $question->attempts++;
+                $user->attempts++;
+
+                if ($question->answer === $selectedAnswer) {
+                    $results[$questionId] = true;
+                    $question->completions++;
+                    $user->completions++;
+                } else {
+                    $results[$questionId] = false;
+                }
+
+                $questions[] = $question;
+
+                $user->save();
+                $question->save();
+
             }
 
-            $user->save();
-            $question->save();
+            session(['questions' => $questions, 'results' => $results]);
         }
 
-        return view('questions.results', ['results' => $results]);
+        return redirect('/questions/result');
+    }
+
+    public function results(){
+        $results = session('results');
+        $questions = session('questions');
+
+        return view('questions.results', ['results' => $results, 'questions' => $questions]);
     }
 }
