@@ -37,22 +37,22 @@
             </div>
         </x-card>
     </div>
-    <form action="/questions/{{ $course->id }}/show">
-        <div class="fixed" style="bottom: 40px; right: 70px; z-index: 999;">
-            <div class="flex flex-col items-center justify-center">
-                @auth
-                @if (auth()->user()->id == $course->user_id)
-
-                <a href="/courses/{{ $course->id }}/edit">
-                    <i class="fa-solid fa-pencil"></i> Edit
-                </a>
-                <form method="POST" action="/courses/{{ $course->id }}">
-                    @csrf
-                    @method('DELETE')
-                    <button class="text-red-500 mt-2"><i class="fa-solid fa-trash"></i>Delete</button>
-                </form>
-
-                @endif
+    <div class="fixed" style="bottom: 40px; right: 70px; z-index: 999;">
+        <div class="flex flex-col items-center justify-center">
+            @auth
+            @if (auth()->user()->id == $course->user_id)
+            
+            <a href="/courses/{{ $course->id }}/edit">
+                <i class="fa-solid fa-pencil"></i> Edit
+            </a>
+            <form method="POST" action="/courses/{{ $course->id }}">
+                @csrf
+                @method('DELETE')
+                <button class="text-red-500 mt-2"><i class="fa-solid fa-trash"></i>Delete</button>
+            </form>
+            
+            @endif
+            <form method="GET" action="/questions/{{ $course->id }}/show">
 
                 <select name="difficulty" id="difficulty"
                     class="block w-25 mt-3 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-red-500 focus:border-red-500">
@@ -66,8 +66,8 @@
                     Kviz <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
+            </form>
                 @endauth
             </div>
         </div>
-    </form>
 </x-layout>

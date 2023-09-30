@@ -61,16 +61,19 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 
-
 Route::get('/questions/create/{course}', [QuestionController::class, 'create'])->middleware('auth');
 
 Route::post('/questions', [QuestionController::class, 'store'])->middleware('auth');
-Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->middleware('auth');
-Route::put('/questions/{question}', [QuestionController::class, 'update'])->middleware('auth');
 
+Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->middleware('auth');
+
+Route::put('/questions/{question}', [QuestionController::class, 'update'])->middleware('auth');
 
 Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->middleware('auth');
 
+Route::get('/questions/{course}/show', [QuestionController::class, 'show']);
+
+Route::post('/questions/check', [QuestionController::class, 'checkAnswers']);
 
 
 Route::post('/attachments', [AttachmentsController::class, 'authenticate'])->name('attachments.store');

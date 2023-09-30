@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    public function show(Request $request, Course $course) {
+
+        $course->questions = $course->questions()->where('difficulty', $request['difficulty'])->get();
+        //dd($course->questions);
+
+        return view('questions.show', [
+            'course' => $course
+        ]);
+    }
+
     public function create($courseId)
     {
         $course = Course::find($courseId);
@@ -66,7 +77,6 @@ class QuestionController extends Controller
         return redirect('/courses/' . (int)$courseId . '/edit')->with('message', 'Pitanje uspešno izmenjeno.');
     }
 
-
     public function destroy(Question $question){
 
         if($question->course->user_id != auth()->id()){
@@ -75,5 +85,31 @@ class QuestionController extends Controller
 
         $question->delete();
         return redirect('/courses/' . (int)$question->course->id . '/edit')->with('message', 'Pitanje uspešno obrisano.');
+    }
+
+    public function checkAnswers(Request $request) {
+        $selectedAnswers = $request->input('answers');
+        $results = [];
+
+        $user = User::find(auth()->user()->id);
+    
+        foreach ($selectedAnswers as $questionId => $selectedAnswer) {
+            $question = Question::find($questionId);
+            $question->attempts++;
+            $user->attempts++;
+
+            if ($question->answer === $selectedAnswer) {
+                $results[$questionId] = true; 
+                $question->completions++;
+                $user->completions++;
+            } else {
+                $results[$questionId] = false;
+            }
+
+            $user->save();
+            $question->save();
+        }
+
+        return view('questions.results', ['results' => $results]);
     }
 }
