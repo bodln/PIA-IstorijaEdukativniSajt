@@ -1,27 +1,20 @@
-import { Controller } from './node_modules/stimulus/index.d.ts';
+document.addEventListener("DOMContentLoaded", function () {
+    const optionsButton = document.getElementById("optionsButton");
+    const optionsMenu = document.getElementById("optionsMenu");
 
-export default class extends Controller {
-    upload(event) {
-        if (!event?.attachment?.file) {
-            return;
+    optionsButton.addEventListener("click", function () {
+        // Toggle the visibility of the options menu
+        if (optionsMenu.style.display === "block") {
+            optionsMenu.style.display = "none";
+        } else {
+            optionsMenu.style.display = "block";
         }
+    });
 
-        this._uploadFile(event.attachment);
-    }
-
-    _uploadFile(attachment) {
-        const form = new FormData();
-        form.append('attachment', attachment.file);
-
-        window.axios.post('/attachments', form, {
-            onUploadProgress: (progressEvent) => {
-                attachment.setUploadProgress(progressEvent.loaded / progressEvent.total * 100);
-            }
-        }).then(resp => {
-            attachment.setAttributes({
-                url: resp.data.image_url,
-                href: resp.data.image_url,
-            });
-        });
-    }
-}
+    // Close the dropdown menu if the user clicks outside of it
+    window.addEventListener("click", function (event) {
+        if (!optionsButton.contains(event.target) && !optionsMenu.contains(event.target)) {
+            optionsMenu.style.display = "none";
+        }
+    });
+});

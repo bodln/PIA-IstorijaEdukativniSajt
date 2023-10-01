@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="mx-4 flex flex-col items-center justify-center">
+    <div class="mx-4 flex flex-col items-center justify-center" style="height: 100vh;">
         <x-card>
             <div class="mx-4 flex flex-col items-center justify-center">
-                <p class="text-2xl  m-4 font-bold">Rezultati</p>
+                <p class="text-2xl mt-6 font-bold">Rezultati</p>
                 <div class="border border-gray-200 w-full mb-6 mt-6"></div>
                 @if (!empty($questions))
                     @php
@@ -27,7 +27,7 @@
                         @endif
                         <div class="border border-gray-200 w-full mb-6 mt-6"></div>
                     @endforeach
-                    <p class="text-l font-bold mt-3 mb-4">Broj tačnih odgovora: {{ $correctCount }}/{{ $count }}</p>
+                    <p class="text-l font-bold mt-1 mb-8">Broj tačnih odgovora: {{ $correctCount }}/{{ $count }}</p>
                 @else
                     <p class="m-7">Niste odgovorili ni na jedno pitanje</p>
                 @endif

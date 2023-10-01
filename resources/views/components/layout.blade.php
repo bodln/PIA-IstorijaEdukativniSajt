@@ -34,29 +34,51 @@
 
 <x-flash-message />
 
-<body class="relative pb-40">
+<body class="relative pb-40" style="box-sizing: border-box;">
     <nav class="flex justify-between items-center mb-4">
         <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
             @auth
             <li>
                 <span class="font-bold uppercase">
-                    {{ auth()->user()->name }}, preciznost: {{ number_format((auth()->user()->completions /
-                        auth()->user()->attempts) * 100, 2) }}% ({{ auth()->user()->completions }} /
-                        {{ auth()->user()->attempts }})
+                    {{ auth()->user()->name }}, preciznost:
+                    @if (auth()->user()->attempts > 0)
+                    {{ number_format((auth()->user()->completions / auth()->user()->attempts) * 100, 2) }}%
+                    ({{ auth()->user()->completions }} / {{ auth()->user()->attempts }})
+                    @else
+                    N/A
+                    @endif
                 </span>
+
             </li>
-            <li>
-                <a href="/courses/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
-                    Upravljanje Kursevima</a>
-            </li>
+            @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
             <li>
                 <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Kreiraj Kurs</a>
+            </li>
+            @endif
+            <li>
+
+                @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
+
+                <button id="optionsButton" type="button" class="hover:text-laravel text-lg relative">
+                    <i class="fa-solid fa-gear"></i> Options
+                </button>
+                <div id="optionsMenu"
+                    class="hidden absolute right-50 w-70 py-2 bg-white border border-gray-300 rounded-lg shadow-lg">
+
+                    <a href="/courses/manage" class="hover:text-laravel">
+                        Upravljanje Kursevima</a>
+                        @if (auth()->user()->role == "admin")
+                        <a href="/courses/manage" class="hover:text-laravel">
+                            Upravljanje Zahtevima</a>
+                        @endif
+                </div>
+                @endif
             </li>
             <li>
                 <form class="inline" method="POST" action="/logout">
                     @csrf
-                    <button type="submit">
+                    <button type="submit" class="hover:text-laravel">
                         <i class="fa-solid fa-door-closed"></i> Logout
                     </button>
                 </form>
@@ -71,6 +93,7 @@
             </li>
             @endauth
         </ul>
+
     </nav>
     <main>
         {{ $slot }}

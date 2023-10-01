@@ -1,13 +1,15 @@
 <x-layout>
-    <div style="widows: 100%; display: flex; justify-content:center; align-items:center;">
+    <div style="widows: 100%; display: flex; justify-content:center; align-items:center; min-height: 100vh;">
+        <div style="min-height: 60vh;">
         <x-card class="p-10">
-            <header>
-                <h1 class="text-3xl text-center font-bold my-6 uppercase">
-                    Upravljanje Kursevima
-                </h1>
-            </header>
 
-            <table class="w-full table-auto rounded-sm">
+                <header>
+                    <h1 class="text-3xl text-center font-bold my-6 uppercase">
+                        Upravljanje Kursevima
+                    </h1>
+                </header>
+                
+                <table class="w-full table-auto rounded-sm">
                 <tbody>
                     @unless ($courses->isEmpty())
                     @foreach ($courses as $course)
@@ -38,9 +40,10 @@
                         </td>
                     </tr>
                     @endunless
-
+                    
                 </tbody>
             </table>
         </x-card>
+    </div>
     </div>
 </x-layout>

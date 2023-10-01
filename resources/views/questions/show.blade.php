@@ -21,21 +21,19 @@
                         shuffle($options);
                         @endphp
                         <div class="mx-4 grid grid-cols-2 gap-10">
-                            {{-- @foreach ($options as $option)
-                            <label class="block mb-2">
-                                <input class="text-l font-bold mt-3" type="radio" name="answers[{{ $question->id }}]"
-                                    value="{{ $option }}">
-                                {{ $option }}
-                            </label>
-                            @endforeach --}}
                             @foreach ($options as $option)
-                            <label class="block mb-2">
-                                <input class="text-l mt-3" type="radio" name="answers[{{ $question->id }}]"
-                                    value="{{ $option }}" onclick="updateLabelStyle(this)">
+                            <label class="block mb-2 radio-label text-center">
+                                <input class="text-l mt-3" data-question-id="{{ $question->id }}" type="radio"
+                                    name="answers[{{ $question->id }}]" value="{{ $option }}"
+                                    onclick="updateLabelStyle(this)">
                                 <span>{{ $option }}</span>
                             </label>
                             @endforeach
                         </div>
+                        <button type="button" class="p-2 mt-3 bg-black text-white py-2 px-5 hint-button"
+                            data-question-id="{{ $question->id }}" data-hint-used="false">
+                            pola-pola
+                        </button>
                         <div class="border border-gray-200 w-full mb-6 mt-6"></div>
                         @endforeach
 
@@ -54,12 +52,18 @@
 </x-layout>
 
 <style>
+    .radio-label {
+        width: 350px;
+    }
+
     .selected-label {
         font-weight: bold;
     }
 </style>
 
 <script>
+    const questionsData = @json($course->questions->keyBy('id'));
+
     function updateLabelStyle(radioButton) {
         const labels = radioButton.parentNode.parentNode.querySelectorAll('label');
 
@@ -71,4 +75,45 @@
             radioButton.parentNode.classList.add('selected-label');
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const hintButtons = document.querySelectorAll('.hint-button');
+
+        hintButtons.forEach(button => {
+            button.addEventListener("click", provideHint);
+        });
+
+        function provideHint(event) {
+            const questionId = event.currentTarget.getAttribute("data-question-id");
+            const hintUsed = event.currentTarget.getAttribute("data-hint-used");
+
+            if (hintUsed === "false") {
+                const selectedOptions = document.querySelectorAll(`input[type="radio"][data-question-id="${questionId}"]`);
+                const incorrectOptions = [];
+
+                selectedOptions.forEach(option => {
+                    if (option.value !== questionsData[questionId].answer) {
+                        incorrectOptions.push(option);
+                    }
+                });
+
+                shuffleArray(incorrectOptions);
+                const optionsToStrike = incorrectOptions.slice(0, 2);
+
+                optionsToStrike.forEach(option => {
+                    const label = option.parentNode;
+                    label.style.textDecoration = "line-through";
+                });
+
+                event.currentTarget.setAttribute("data-hint-used", "true");
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    });
 </script>

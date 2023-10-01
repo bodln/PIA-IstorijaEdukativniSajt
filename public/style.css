@@ -75,3 +75,33 @@
 .trix-button--icon-quote {
     display: none !important;
 }
+
+/* Style for the options button */
+#optionsButton {
+    padding: 8px 12px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style for the options menu container */
+#optionsMenu {
+    display: none;
+    z-index: 999;
+}
+
+/* Style for individual dropdown menu items */
+#optionsMenu a {
+    z-index: 999;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333; /* Customize the text color */
+    transition: background-color 0.2s;
+}
+
+/* Hover effect for dropdown menu items */
+#optionsMenu a:hover {
+    z-index: 999;
+    background-color: #f3f3f3; /* Customize the hover background color */
+}
