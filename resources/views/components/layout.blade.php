@@ -39,7 +39,7 @@
         <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
             @auth
-            <li>
+            <li style="padding-top: 8px;">
                 <span class="font-bold uppercase">
                     {{ auth()->user()->name }}, preciznost:
                     @if (auth()->user()->attempts > 0)
@@ -51,31 +51,39 @@
                 </span>
 
             </li>
-            @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
-            <li>
-                <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Kreiraj Kurs</a>
+            @if (auth()->user()->role == "student")
+            <li style="padding-top: 8px;">
+                <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Postani Profesor</a>
             </li>
             @endif
-            <li>
-
-                @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
-
-                <button id="optionsButton" type="button" class="hover:text-laravel text-lg relative">
-                    <i class="fa-solid fa-gear"></i> Options
-                </button>
-                <div id="optionsMenu"
-                    class="hidden absolute right-50 w-70 py-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-
-                    <a href="/courses/manage" class="hover:text-laravel">
-                        Upravljanje Kursevima</a>
-                        @if (auth()->user()->role == "admin")
-                        <a href="/courses/manage" class="hover:text-laravel">
-                            Upravljanje Zahtevima</a>
-                        @endif
-                </div>
-                @endif
+            @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
+            <li style="padding-top: 8px;">
+                <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Kreiraj Kurs</a>
             </li>
             <li>
+
+
+                <button id="optionsButton" type="button" class="hover:text-laravel text-lg relative">
+                    <i class="fa-solid fa-gear"></i> Opcije
+                </button>
+                <div id="optionsMenu"
+                    class="hidden absolute right-50 w-50 py-2 bg-white border border-gray-300 rounded-lg shadow-lg">
+
+                    @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
+                    <a href="/courses/manage" class="hover:text-laravel">
+                        Upravljanje Kursevima
+                    </a>
+
+                    @if (auth()->user()->role == "admin")
+                    <a href="/courses/manage" class="hover:text-laravel">
+                        Upravljanje Zahtevima
+                    </a>
+                    @endif
+                    @endif
+                </div>
+            </li>
+            @endif
+            <li style="padding-top: 8px;">
                 <form class="inline" method="POST" action="/logout">
                     @csrf
                     <button type="submit" class="hover:text-laravel">
