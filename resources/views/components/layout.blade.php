@@ -36,8 +36,8 @@
 <x-flash-message />
 
 <body class="relative pb-40" style="box-sizing: border-box;">
-    <nav class="flex justify-between items-center mb-4">
-        <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
+    <nav class="flex justify-between items-center ">
+        <a href="/"><img class="w-24" src="{{ asset('images/logo2.png') }}" alt="" class="logo" /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
             @auth
             <li style="padding-top: 8px;">

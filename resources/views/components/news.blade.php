@@ -1,11 +1,8 @@
 @props(['notifications'])
 @auth
-    
+
 <div id="notifications-container" style="position: relative;">
-    <div
-    id="notifications"
-    class="bg-gray-50 border-2 rounded"
-    style="
+    <div id="notifications" class="bg-gray-50 border-2 rounded" style="
             position: absolute;
             left: 0;
             transform: translateY(-50%);
@@ -17,14 +14,16 @@
             z-index: 999;
             top: 272px;
             overflow-y: auto;
-        "
-    >
+        ">
         <h3 class="text-xl font-bold m-2 text-center">Novosti</h3>
         <div class="border border-gray-200 w-full mb-6 mt-6"></div>
         <ul>
             @foreach ($notifications as $notification)
+            @if ($notification->type === 'news' | ($notification->type === 'request' & auth()->user()->role == 'admin'))
             <li class="ml-3"><i class="fa-solid fa-minus mb-4"></i> {{ $notification->title }}</li>
+            @endif
             @endforeach
+
         </ul>
     </div>
 </div>
