@@ -40,17 +40,18 @@
     <div class="fixed" style="bottom: 40px; right: 70px; z-index: 999;">
         <div class="flex flex-col items-center justify-center">
             @auth
-            @if (auth()->user()->id == $course->user_id)
-            
+            @if (auth()->user()->id == $course->user_id | auth()->user()->role == 'admin')
+            @if(auth()->user()->id == $course->user_id)
             <a href="/courses/{{ $course->id }}/edit">
-                <i class="fa-solid fa-pencil"></i> Edit
+                <i class="fa-solid fa-pencil"></i> Izmeni
             </a>
+            @endif
             <form method="POST" action="/courses/{{ $course->id }}">
                 @csrf
                 @method('DELETE')
-                <button class="text-red-500 mt-2"><i class="fa-solid fa-trash"></i>Delete</button>
+                <button class="text-red-500 mt-2"><i class="fa-solid fa-trash"></i>Obriši</button>
             </form>
-            
+
             @endif
             <form method="GET" action="/questions/{{ $course->id }}/show">
 
@@ -67,7 +68,7 @@
                 </button>
 
             </form>
-                @endauth
-            </div>
+            @endauth
         </div>
+    </div>
 </x-layout>

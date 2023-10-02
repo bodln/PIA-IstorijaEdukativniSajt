@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuestionController;
 
 /*
@@ -62,6 +63,11 @@ Route::get('/questions/{course}/show', [QuestionController::class, 'show']);
 
 Route::post('/questions/check', [QuestionController::class, 'checkAnswers'])->middleware('prevent.duplicate.answers');
 
+
+Route::post('/notification', [NotificationController::class, 'store'])->middleware('auth');
+Route::get('/notifications/manage', [NotificationController::class, 'show'])->middleware('auth');
+Route::post('/notifications/{notification}/accept', [NotificationController::class, 'accept'])->middleware('auth');
+Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])->middleware('auth');
 
 
 Route::post('/attachments', [AttachmentsController::class, 'authenticate'])->name('attachments.store');

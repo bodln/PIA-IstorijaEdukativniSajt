@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="mx-4 flex flex-col items-center justify-center" style="height: 100vh;">
+    <div class="mx-4 flex flex-col items-center mt-20" style="height: 100vh;">
         <x-card>
             <div class="mx-4 flex flex-col items-center justify-center">
                 <p class="text-2xl mt-6 font-bold">Rezultati</p>

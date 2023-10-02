@@ -52,8 +52,11 @@
 
             </li>
             @if (auth()->user()->role == "student")
-            <li style="padding-top: 8px;">
-                <a href="/courses/create" class=" top-1/3 left-10 bg-black text-white py-2 px-5">Postani Profesor</a>
+            <li >
+                <form method="POST" action="/notification" class="inline">
+                    @csrf
+                    <button type="submit" class="top-1/3 left-10 bg-black text-white py-2 px-5">Postani Profesor</button>
+                </form>
             </li>
             @endif
             @if (auth()->user()->role == "teacher" | auth()->user()->role == "admin")
@@ -75,7 +78,7 @@
                     </a>
 
                     @if (auth()->user()->role == "admin")
-                    <a href="/courses/manage" class="hover:text-laravel">
+                    <a href="/notifications/manage" class="hover:text-laravel">
                         Upravljanje Zahtevima
                     </a>
                     @endif
@@ -93,7 +96,7 @@
             </li>
             @else
             <li>
-                <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
+                <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Registracjia</a>
             </li>
             <li>
                 <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
