@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class CourseController extends Controller
         return view('courses.index', [
             'courses' => Course::latest()
                 ->filter(request(['tag', 'search']))
-                ->paginate(10)
+                ->paginate(10),
+                'notifications' => Notification::latest()->get()
         ]);
     }
 
@@ -53,6 +55,12 @@ class CourseController extends Controller
         $formFields['user_id'] = auth()->id();
 
         Course::create($formFields);
+
+        Notification::create([
+            'title' => 'Novi kurs: '. $formFields['title'] . " (autor: " . auth()->user()->name . ")",
+            'type' => 'news',
+            'user_id' => null,
+        ]);
 
         return redirect('/')->with('message', 'Kurs uspešno kreiran.');
     }

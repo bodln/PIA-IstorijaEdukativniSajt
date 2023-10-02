@@ -8,6 +8,15 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function show()
+    {
+        $users = User::paginate(10);
+
+        return view('users.show', [
+            'users' => $users
+        ]);
+    }
+
     public function create() {
         return view('users.register');
     }
@@ -54,5 +63,55 @@ class UserController extends Controller
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials.'])->onlyInput('email');
+    }
+
+    public function toggleAdmin(User $user){
+        if (auth()->user()->role != 'admin') {
+            abort(403, 'Unauthorized action');
+        }
+
+        if($user->role == 'admin'){
+            $user->role = 'student';
+        } else {
+            $user->role = 'admin';
+        }
+
+        $role = 'admin';
+        if($user->role == 'teacher'){
+
+            $role = 'Profesor';
+        }
+        elseif ($user->role == 'student'){
+
+            $role = 'Učenik';
+        }
+
+        $user->save();
+        return redirect('/users/manage')->with('message', $user->name . ' je postao: ' . $role);
+    }
+
+    public function toggleTeacher(User $user){
+        if (auth()->user()->role != 'admin') {
+            abort(403, 'Unauthorized action');
+        }
+
+        if($user->role == 'teacher'){
+            $user->role = 'student';
+        } else {
+            $user->role = 'teacher';
+        }
+
+        $role = 'admin';
+        if($user->role == 'teacher'){
+
+            $role = 'Profesor';
+        }
+        elseif ($user->role == 'student'){
+
+            $role = 'Učenik';
+        }
+
+        $user->save();
+        return redirect('/users/manage')->with('message', $user->name . ' je postao: ' . $role);
     }
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @livewireStyles
     <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}">
     <link rel="icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -81,6 +82,9 @@
                     <a href="/notifications/manage" class="hover:text-laravel">
                         Upravljanje Zahtevima
                     </a>
+                    <a href="/users/manage" class="hover:text-laravel">
+                        Upravljanje Korisnicima
+                    </a>
                     @endif
                     @endif
                 </div>
@@ -113,6 +117,7 @@
         class="absolute bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center">
         <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
     </footer>
+    @livewireScripts
 </body>
 
 </html>

@@ -10,12 +10,14 @@ class NotificationController extends Controller
 {
     public function show()
     {
-        $notifications = Notification::paginate(10);
+        $notifications = Notification::where('type', '!=', 'news')
+            ->paginate(10);
 
         return view('notifications.show', [
             'notifications' => $notifications
         ]);
     }
+
 
     public function store(Request $request)
     {
@@ -45,17 +47,18 @@ class NotificationController extends Controller
         return redirect('/')->with('message', 'Zahtev odbijen.');
     }
 
-    public function accept(Notification $notification){
+    public function accept(Notification $notification)
+    {
         $user = User::find($notification->user_id);
 
         if (!$user) {
             abort(404, 'User not found');
         }
-    
+
         $user->update(['role' => 'teacher']);
-    
+
         $notification->delete();
-    
+
         return redirect('/notifications/manage')->with('message', 'Korisniku je odobren zahtev.');
     }
 }

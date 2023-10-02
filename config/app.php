@@ -1,7 +1,13 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+use Livewire\LivewireServiceProvider;
+use App\Providers\AuthServiceProvider;
 use Illuminate\Support\Facades\Facade;
+use App\Providers\EventServiceProvider;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\BroadcastServiceProvider;
 
 return [
 
@@ -167,6 +173,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
 

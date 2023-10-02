@@ -40,11 +40,17 @@ Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 Route::post('/users', [UserController::class, 'store']);
 
+Route::get('/users/manage', [UserController::class, 'show']);
+
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+Route::post('/users/{user}/admin', [UserController::class, 'toggleAdmin']);
+
+Route::post('/users/{user}/teacher', [UserController::class, 'toggleTeacher']);
 
 
 Route::get('/questions/create/{course}', [QuestionController::class, 'create'])->middleware('auth');

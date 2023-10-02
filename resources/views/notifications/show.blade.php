@@ -24,14 +24,14 @@
                                
                                 <form method="POST" action="/notifications/{{ $notification->id }}/accept">
                                     @csrf
-                                    <button type="submit"><i class="fa-solid fa-pencil"></i> Prihvati</button>
+                                    <button type="submit"><i class="fa-solid fa-check text-green-500"></i> Prihvati</button>
                                 </form>
                             </td>
                             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
                                 <form method="POST" action="/notifications/{{ $notification->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-red-500"><i class="fa-solid fa-trash"></i>Briši</button>
+                                    <button class="text-red-500"><i class="fa-solid fa-trash"></i> Briši</button>
                                 </form>
                             </td>
                         </tr>
