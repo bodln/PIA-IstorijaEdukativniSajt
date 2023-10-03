@@ -1,4 +1,5 @@
 <x-layout>
+    <div style="widows: 100%; display: flex; justify-content:center; align-items:center; min-height: 100vh;">
     <div class="mx-4 flex flex-col items-center justify-center">
         <x-card>
             <div class="mx-4 flex flex-col items-center justify-center">
@@ -48,6 +49,7 @@
                 </form>
             </div>
         </x-card>
+    </div>
     </div>
 </x-layout>
 

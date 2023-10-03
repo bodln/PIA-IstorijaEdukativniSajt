@@ -2,9 +2,9 @@
     <x-card class="p-10 max-w-lg mx-auto mt-24">
     <header class="text-center">
         <h2 class="text-2xl font-bold uppercase mb-1">
-            Register
+            Prijavi se
         </h2>
-        <p class="mb-4">Log into your account</p>
+        <p class="mb-4">Prijavi se na nalog</p>
     </header>
 
     <form method="POST" action="/users/authenticate">
@@ -30,7 +30,7 @@
                 for="password"
                 class="inline-block text-lg mb-2"
             >
-                Password
+                Šifra
             </label>
             <input
                 type="password"
@@ -48,15 +48,15 @@
                 style="background-color: #ef3b2d;"
                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
             >
-                Sign In
+                Prijavi se
             </button>
         </div>
 
         <div class="mt-8">
             <p>
-                Don't have an account?
-                <a href="/register" class="text-laravel"
-                    >Register</a
+                Nemaš nalog?
+                <a href="/register" class="text-laravel" style="color: #ef3b2d;"
+                    >Registruj se</a
                 >
             </p>
         </div>
