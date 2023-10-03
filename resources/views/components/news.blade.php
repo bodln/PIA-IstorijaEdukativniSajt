@@ -39,7 +39,6 @@
         if (scrollY >= 500) {
             notificationsDiv.style.position = "fixed";
             const n = 272 + 90;
-            console.log(n)
             notificationsDiv.style.top = n + 'px';
         } else {
             notificationsDiv.style.position = "absolute";

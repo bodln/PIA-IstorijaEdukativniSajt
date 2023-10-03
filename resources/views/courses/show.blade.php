@@ -63,7 +63,7 @@
                 </select>
                 <button id="fixedButton"
                     class="pr-2 pl-2 h-10 mt-3 text-white border border-gray-300 rounded-lg bg-red-500 hover:bg-red-600"
-                    style="bottom: 40px; right: 70px; width: 105px;" type="submit">
+                    style="bottom: 40px; right: 70px; width: 105px; background-color: #ef3b2d;" type="submit">
                     Kviz <i class="fa-solid fa-arrow-right"></i>
                 </button>
 

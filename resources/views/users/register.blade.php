@@ -77,6 +77,7 @@
         <div class="mb-6">
             <button
                 type="submit"
+                style="background-color: #ef3b2d;"
                 class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
             >
                 Sign Up

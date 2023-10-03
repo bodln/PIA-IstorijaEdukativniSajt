@@ -1,4 +1,7 @@
 @import './_trix.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .test{
     background-color: black;
     height: 50px;
