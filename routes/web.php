@@ -67,7 +67,7 @@ Route::get('/questions/result', [QuestionController::class, 'results']);
 
 Route::get('/questions/{course}/show', [QuestionController::class, 'show']);
 
-Route::post('/questions/check', [QuestionController::class, 'checkAnswers'])->middleware('prevent.duplicate.answers');
+Route::post('/questions/check', [QuestionController::class, 'checkAnswers'])->middleware('auth');//->middleware('prevent.duplicate.answers');
 
 
 Route::post('/notification', [NotificationController::class, 'store'])->middleware('auth');

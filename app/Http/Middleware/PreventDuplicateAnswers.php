@@ -21,7 +21,7 @@ class PreventDuplicateAnswers
             // Check if the question has already been answered in this session
             if (in_array($questionId, $selectedAnswers)) {
                 // Do not increment attempts and completions
-                return redirect()->back()->with('message', 'You have already answered this question in this session.');
+                return redirect()->back()->with('message', 'Ovo pitanje je već odgovoreno.');
             }
         }
 
