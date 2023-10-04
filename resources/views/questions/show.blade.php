@@ -4,7 +4,7 @@
         <x-card>
             <div class="mx-4 flex flex-col items-center justify-center">
                 <p class="text-2xl font-bold mt-3">{{ $course->title }}</p>
-                <form action="/questions/check" method="POST">
+                <form method="POST" action="/questions/check">
                     @csrf
                     <div class="mx-4 flex flex-col items-center justify-center">
                         @if ($course->questions->isNotEmpty())
