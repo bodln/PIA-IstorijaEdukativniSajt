@@ -94,6 +94,7 @@ class QuestionController extends Controller
 
     public function checkAnswers(Request $request)
     {
+        dd($request);
         $selectedAnswers = $request->input('answers');
         $previousAnswers = $request->session()->get('selectedAnswers', []);
         $results = [];
