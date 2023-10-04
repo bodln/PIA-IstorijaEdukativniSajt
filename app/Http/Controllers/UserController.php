@@ -34,7 +34,7 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/')->with('message', 'User created.');
+        return redirect('/')->with('message', 'Korisnik kreiran.');
     }
 
     public function logout(Request $request){
@@ -43,7 +43,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'You have been logged out.');
+        return redirect('/')->with('message', 'Uspešna odjava.');
     }
 
     public function login(){
@@ -59,7 +59,7 @@ class UserController extends Controller
         if(auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('message', 'You are now logged in.');
+            return redirect('/')->with('message', 'Uspešna prijava.');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials.'])->onlyInput('email');
