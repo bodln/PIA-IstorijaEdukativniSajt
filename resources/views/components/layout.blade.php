@@ -62,7 +62,7 @@
             <li >
                 <form method="POST" action="/notification" class="inline">
                     @csrf
-                    <button type="submit" class="top-1/3 left-10 bg-black text-white py-2 px-5">Postani Profesor</button>
+                    <button type="submit" class="top-1/3 left-10 bg-black text-white py-2 px-5" style="background-color: black;">Postani Profesor</button>
                 </form>
             </li>
             @endif

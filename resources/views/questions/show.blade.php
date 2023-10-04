@@ -31,7 +31,7 @@
                             </label>
                             @endforeach
                         </div>
-                        <button type="button" class="p-2 mt-3 bg-black text-white py-2 px-5 hint-button"
+                        <button type="button" style="background-color: black;" class="p-2 mt-3 bg-black text-white py-2 px-5 hint-button"
                             data-question-id="{{ $question->id }}" data-hint-used="false">
                             pola-pola
                         </button>
@@ -39,6 +39,7 @@
                         @endforeach
 
                         <button type="submit"
+                        style="background-color: #ef3b2d;"
                             class="pr-2 pl-2 h-10 mb-8 mt-3 text-white border border-gray-300 rounded-lg bg-red-500 hover:bg-red-600">
                             Proveri odgovore
                         </button>
